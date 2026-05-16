@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Home from "@/components/Home.vue";
+import Service from "@/components/Service/Service.vue";
 </script>
 
 <template>
   <main>
-    <Home />
+    <Service />
   </main>
 </template>
