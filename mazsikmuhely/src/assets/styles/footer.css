@@ -44,6 +44,12 @@
   color: #666;
 }
 
+.legal-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 @media (max-width: 900px) {
   .footer-grid {
     grid-template-columns: 1fr;
