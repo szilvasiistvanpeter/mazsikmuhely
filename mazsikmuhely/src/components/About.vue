@@ -3,6 +3,7 @@
 <template>
   <main class="about-page">
     <div class="container">
+      <!-- Intro Section -->
       <section class="intro-section">
         <div class="text-content">
           <span class="label">Családi vállalkozás évtizedek óta</span>
@@ -21,17 +22,17 @@
             </p>
           </div>
         </div>
+
         <div class="image-wrapper">
           <div class="experience-card">
             <span class="number">15+</span>
             <span class="text">év szakmai tapasztalat a vezetésben</span>
           </div>
-          <div class="placeholder-img">
-            <!-- <img src="@/assets/muhely.jpg" alt="Mazsik Műhely" /> -->
-          </div>
+          <div class="placeholder-img"></div>
         </div>
       </section>
 
+      <!-- Tevékenységek Section -->
       <section class="activities-section">
         <div class="section-title">
           <h2>Fő tevékenységeink</h2>
