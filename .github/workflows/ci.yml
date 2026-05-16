@@ -1,0 +1,104 @@
+name: Test, Build, and Deploy
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  # ---------------------------------------------------
+  # JOB 1: Quality Checks (Tests, Types, Security)
+  # ---------------------------------------------------
+  test-and-audit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: introduction
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+          cache-dependency-path: introduction/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Test (Typecheck)
+        run: pnpm tsc
+
+      - name: Run Audit
+        run: pnpm audit --audit-level=high
+
+  # ---------------------------------------------------
+  # JOB 2: Build Artifacts (React & MkDocs)
+  # ---------------------------------------------------
+  build:
+    needs: test-and-audit # Waits for tests to pass!
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: introduction
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # --- Frontend Environment Setup ---
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+          cache-dependency-path: introduction/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install
+
+      # --- Build Process ---
+      - name: Build Vue App
+        run: pnpm build
+
+      - name: Create 404 page for SPA
+        run: cp dist/index.html dist/404.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: introduction/dist
+
+  # ---------------------------------------------------
+  # JOB 3: Deploy to GitHub Pages
+  # ---------------------------------------------------
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
