@@ -14,7 +14,7 @@
 
         <div class="actions">
           <slot name="actions">
-            <a href="/service" class="cta-button">Fedezze fel szolgáltatásainkat</a>
+            <a href="/mazsikmuhely/service" class="cta-button">Fedezze fel szolgáltatásainkat</a>
           </slot>
         </div>
       </div>
