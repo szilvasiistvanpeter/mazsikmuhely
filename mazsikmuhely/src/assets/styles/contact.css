@@ -25,8 +25,9 @@
 
 h1 {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 4rem;
+  font-size: clamp(2.8rem, 5vw, 4rem); /* Dinamikus betűméret */
   margin-top: 0.5rem;
+  line-height: 1;
 }
 
 .contact-grid {
@@ -49,7 +50,7 @@ h1 {
   gap: 1.5rem;
   align-items: center;
   border: 1px solid #222;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s ease;
 }
 
 .info-card:hover {
@@ -64,6 +65,7 @@ h1 {
   align-items: center;
   justify-content: center;
   border-radius: 4px;
+  flex-shrink: 0;
 }
 
 .icon-box i {
@@ -79,13 +81,15 @@ h1 {
 }
 
 .details p,
-.contact-link {
+.details a {
   color: #ccc;
   font-size: 1.1rem;
   text-decoration: none;
+  transition: color 0.3s ease;
+  word-break: break-word;
 }
 
-.contact-link:hover {
+.details a:hover {
   color: white;
 }
 
@@ -124,13 +128,39 @@ h1 {
   top: 100px;
 }
 
+.map-wrapper iframe {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
 @media (max-width: 900px) {
+  .contact-page {
+    padding: 3rem 0;
+  }
+
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
   .contact-grid {
     grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .info-card {
+    padding: 1.2rem;
+    gap: 1.2rem;
   }
 
   .map-wrapper {
     height: 350px;
-    order: -1;
+    position: static;
+    order: 0;
   }
 }
