@@ -1,27 +1,48 @@
 <script setup lang="ts">
   import { RouterLink } from 'vue-router'
+
+  import { ref } from 'vue'
+
+  const isMenuOpen = ref(false)
+
+  const toggleMenu = () => {
+    isMenuOpen.value = !isMenuOpen.value
+  }
+
+  const closeMenu = () => {
+    isMenuOpen.value = false
+  }
 </script>
 
 <template>
-  <header class="navbar">
+  <nav class="navbar">
     <div class="container">
-      <div class="logo">
-        <RouterLink to="/" class="logo-link">
-          <img src="@/assets/logo.png" alt="Mazsik Műhely logó" class="logo-image" />
-          <h2 class="brand-logo">Mazsik<span>Műhely</span></h2>
-        </RouterLink>
-      </div>
+      <router-link to="/" class="logo-link" @click="closeMenu">
+        <img src="@/assets/logo.png" alt="Logo" class="logo-image" />
+        <h2 class="brand-logo">Mazsik<span>Műhely</span></h2>
+      </router-link>
 
-      <nav class="nav-links">
-        <RouterLink to="/" class="nav-item home-link">
+      <button
+        class="hamburger"
+        :class="{ 'is-active': isMenuOpen }"
+        @click="toggleMenu"
+        aria-label="Toggle menu"
+      >
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+
+      <div class="nav-links" :class="{ 'is-open': isMenuOpen }">
+        <router-link to="/" class="nav-item home-link" @click="closeMenu">
           <i class="pi pi-home"></i>
-        </RouterLink>
-        <RouterLink to="/about" class="nav-item">Rólunk</RouterLink>
-        <RouterLink to="/service" class="nav-item">Szolgáltatások</RouterLink>
-        <RouterLink to="/contact" class="nav-item">Kapcsolat</RouterLink>
-      </nav>
+        </router-link>
+        <router-link to="/about" class="nav-item" @click="closeMenu">Rólunk</router-link>
+        <router-link to="/service" class="nav-item" @click="closeMenu">Szolgáltatások</router-link>
+        <router-link to="/contact" class="nav-item" @click="closeMenu">Kapcsolat</router-link>
+      </div>
     </div>
-  </header>
+  </nav>
 </template>
 
 <style scoped src="@/assets/styles/header.css"></style>
