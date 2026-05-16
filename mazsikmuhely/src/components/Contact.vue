@@ -49,7 +49,23 @@
             </div>
             <div class="details">
               <h3>E-mail cím</h3>
-              <p>info@mazsikmuhely.hu</p>
+              <a href="mailto:mazsikgabor@gmail.com">mazsikgabor@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="icon-box">
+              <i class="pi pi-facebook"></i>
+            </div>
+            <div class="details">
+              <h3>Facebook</h3>
+              <a
+                href="https://www.facebook.com/mazsikmuhely"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://www.facebook.com/mazsikmuhely
+              </a>
             </div>
           </div>
 
